@@ -53,12 +53,27 @@
     <div>
       <p>now: "{{ now }}"</p>
     </div>
+    <div>{{ fullName1 }}</div>
+    <div>{{ fullName2 }}</div>
+    <div>{{ fullName3 }}</div>
+    <div>{{ firstName3 }}</div>
+    <div>{{ lastName3 }}</div>
+    <div>
+      <p>
+        yes/no 질문을 물어보세요.
+        <input v-model="question">
+      </p>
+      <p>{{ answer }}</p>
+    </div>
   </div>
 </template>
+<script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>
 
 <script>
   import todoItem1 from '@/components/TodoItem1.vue'
   import todoItem2 from '@/components/TodoItem2.vue'
+  import _ from 'lodash'
+  import axios from 'axios'
 
   let obj = {
     foo: 'bar'
@@ -90,7 +105,16 @@
           { id:1, text: 'Cheese' },
           { id:2, text: 'Whatever else humans are supposed to eat' }
         ],
-        obj
+        obj,
+        firstName1: 'Foo',
+        lastName1: 'Bar',
+        fullName1: 'Foo Bar',
+        firstName2: 'Foo',
+        lastName2: 'Bar',
+        firstName3: '',
+        lastName3: '',
+        question: '',
+        answer: '질문을 하기 전까지는 대답할 수 없습니다.'
       }
     },
     computed: {
@@ -99,6 +123,32 @@
       },
       now() {
         return Date.now()
+      },
+      fullName2() {
+        return this.firstName2 + ' ' + this.lastName2
+      },
+      fullName3: {
+        get() {
+          return this.firstName3 + ' ' + this.lastName3
+        },
+        set(newValue)
+        {
+          let names = newValue.split(' ')
+          this.firstName3 = names[0]
+          this.lastName3 = names[names.length - 1]
+        }
+      }
+    },
+    watch: {
+      firstName1(val) {
+        this.fullName1 = val + ' ' + this.lastName1
+      },
+      lastName1(val) {
+        this.fullName1 = this.fullName1 + ' ' + val
+      },
+      question(newQuestion) {
+        this.answer = '입력을 기다리는 중...'
+        this.getAnswer()
       }
     },
     methods: {
@@ -113,7 +163,25 @@
       },
       reversedMessage2() {
         return this.message5.split('').reverse().join('')
-      }
+      },
+      getAnswer: _.debounce(
+        function() {
+          if (this.question.indexOf('?') === -1) {
+            this.answer = '질문에는 일반적으로 물음표가 포함 됩니다. ;-)'
+            return
+          }
+          this.answer = '생각중...'
+          const vm = this
+          axios.get('https://yesno.wtf/api')
+            .then((response) => {
+              vm.answer = _.capitalize(response.data.answer)
+            })
+            .catch((error) => {
+              vm.answer = '에러! API 요청에 오류가 있습니다' + error
+            })
+        },
+        500
+      )
     }
   }
 </script>
