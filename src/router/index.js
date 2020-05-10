@@ -20,7 +20,6 @@ Vue.use(VueRouter)
             name: '2st',
             component: () => import(/* webpackChunkName: "about" */ '../views/2st.vue'),
         }
-
     ]
   }
 ]

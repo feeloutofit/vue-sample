@@ -82,7 +82,7 @@
   Object.freeze(obj)
 
   export default {
-    name: 'Home',
+    name: 'first',
     components: {
       todoItem1,
       todoItem2
