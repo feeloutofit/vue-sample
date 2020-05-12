@@ -14,10 +14,10 @@
     <div :style="styleObject1"></div>
     <div :style="styleObject2"></div>
     <div :style="[baseStyles, overridingStyles]"></div>
-    <button @click="changeOk">테스트</button>
-    <h1 v-if="ok">Yes</h1>
+    <button @click="changeOk1">테스트</button>
+    <h1 v-if="ok1">Yes</h1>
     <h1 v-else>No</h1>
-    <template v-if="ok">
+    <template v-if="ok1">
       <h1>Title</h1>
       <p>Paragraph 1</p>
       <p>Paragraph 2</p>
@@ -40,6 +40,48 @@
     <div v-else>
       Not A/B/C
     </div>
+    <div>
+      <template v-if="loginType1 === 'userName'">
+        <label>사용자 이름</label>
+        <input placeholder="사용자 이름을 입력하세요">
+      </template>
+      <template v-else>
+        <label>이메일</label>
+        <input placeholder="이메일 주소를 입력하세요">
+      </template>
+      <button @click="changeLoginType1">로그인 유형 변경</button>
+    </div>
+    <div>
+      <template v-if="loginType2 === 'userName'">
+        <label>사용자 이름</label>
+        <input placeholder="사용자 이름을 입력하세요" key="username-input">
+      </template>
+      <template v-else>
+        <label>이메일</label>
+        <input placeholder="이메일 주소를 입력하세요" key="email-input">
+      </template>
+      <button @click="changeLoginType2">로그인 유형 변경</button>
+    </div>
+    <div>
+      <h1 v-show="ok2">안녕하세요!</h1>
+      <button @click="changeOk2">v-show 테스트</button>
+    </div>
+    <div>
+      <ul id="example-1">
+        <li v-for="item in items1">
+          {{ item.message }}
+        </li>
+      </ul>
+    </div>
+    <div>
+      <ul id="example-2">
+        <li v-for="(item, index) in items2">
+          {{ parentMessage }} - {{ index }} - {{ item.message }}
+        </li>
+      </ul>
+    </div>
+    <div v-for="item of items1">{{ item.message }}</div>
+    <div v-for="(item, index) of items2">{{ parentMessage }} - {{ index }} - {{ item.message }}</div>
   </div>
 </template>
 
@@ -78,8 +120,20 @@
           color: 'blue',
           fontSize: '30px'
         },
-        ok: false,
-        typeArr: ['A', 'B', 'C', 'D']
+        ok1: false,
+        typeArr: ['A', 'B', 'C', 'D'],
+        loginType1: 'userName',
+        loginType2: 'userName',
+        ok2: false,
+        items1: [
+          { message: 'Foo'},
+          { message: 'Bar'}
+        ],
+        parentMessage: 'parent',
+        items2: [
+          { message: 'Foo'},
+          { message: 'Bar'}
+        ]
       }
     },
     computed: {
@@ -100,8 +154,17 @@
       }
     },
     methods: {
-      changeOk() {
-        this.ok = !this.ok
+      changeOk1() {
+        this.ok1 = !this.ok1
+      },
+      changeLoginType1() {
+        this.loginType1 = this.loginType1 === 'userName' ? 'userEmail' : 'userName'
+      },
+      changeLoginType2() {
+        this.loginType2 = this.loginType2 === 'userName' ? 'userEmail' : 'userName'
+      },
+      changeOk2() {
+        this.ok2 = !this.ok2
       }
     }
   }
