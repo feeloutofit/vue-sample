@@ -82,6 +82,23 @@
     </div>
     <div v-for="item of items1">{{ item.message }}</div>
     <div v-for="(item, index) of items2">{{ parentMessage }} - {{ index }} - {{ item.message }}</div>
+    <div>
+      <ul id="v-for-object" class="demo">
+        <li v-for="value in object">
+          {{ value }}
+        </li>
+      </ul>
+    </div>
+    <div v-for="(value, name) in object">
+      {{ name }}: {{ value }}
+    </div>
+    <div v-for="(value, name, index) in object">
+      {{ index }}. {{ name }}: {{ value }}
+    </div>
+    <div v-for="item in items3" :key="item.id">
+      {{ item.value }}
+      <!-- content -->
+    </div>
   </div>
 </template>
 
@@ -133,7 +150,12 @@
         items2: [
           { message: 'Foo'},
           { message: 'Bar'}
-        ]
+        ],
+        object: {
+          title: 'How to do lists in Vue',
+          author: 'Jane Doe',
+          publishedAt: '2016-04-10'
+        }
       }
     },
     computed: {
