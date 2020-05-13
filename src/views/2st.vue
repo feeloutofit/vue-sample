@@ -22,7 +22,7 @@
       <p>Paragraph 1</p>
       <p>Paragraph 2</p>
     </template>
-    <div v-if="Math.random() > 0.5">
+    <div v-if="randomMath">
       이제 나를 볼 수 있어요.
     </div>
     <div v-else>
@@ -173,6 +173,9 @@
       },
       type() {
         return this.typeArr[Math.floor(Math.random() * this.typeArr.length)]
+      },
+      randomMath() {
+        return Math.random() > 0.5
       }
     },
     methods: {
