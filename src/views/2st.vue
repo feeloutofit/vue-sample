@@ -95,7 +95,7 @@
     <div v-for="(value, name, index) in object">
       {{ index }}. {{ name }}: {{ value }}
     </div>
-    <div v-for="item in items3" :key="item.id">
+    <div v-for="item in items1" :key="item.id">
       {{ item.value }}
       <!-- content -->
     </div>
