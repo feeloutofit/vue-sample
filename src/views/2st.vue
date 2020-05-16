@@ -99,6 +99,20 @@
       {{ item.value }}
       <!-- content -->
     </div>
+    <div>
+      <li v-for="n in even(numbers)">{{ n }}</li>
+    </div>
+    <div>
+      <span v-for="n in 10">{{ n }}</span>
+    </div>
+    <div>
+      <ul>
+        <template v-for="item in items1">
+          <li>{{ item.message }}</li>
+          <li class="divider" role="presentation"></li>
+        </template>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -155,7 +169,8 @@
           title: 'How to do lists in Vue',
           author: 'Jane Doe',
           publishedAt: '2016-04-10'
-        }
+        },
+        numbers: [1, 2, 3, 4, 5]
       }
     },
     created() {
@@ -196,6 +211,11 @@
       },
       changeOk2() {
         this.ok2 = !this.ok2
+      },
+      even(numbers) {
+        return numbers.filter((number) => {
+          return number % 2 === 0
+        })
       }
     }
   }
