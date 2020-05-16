@@ -158,6 +158,12 @@
         }
       }
     },
+    created() {
+      this.items1.push({ message: 'Baz' })
+      this.items2 = this.items2.filter((item) => {
+        return item.message.match(/Foo/)
+      })
+    },
     computed: {
       classObject2() {
         return {
