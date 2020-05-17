@@ -120,6 +120,8 @@
           <li>{{ todos2.do }}</li>
         </ul>
         <p v-else>todos is not left</p>
+      </div>
+      <my-component1 v-for="item in items3" :key="item3.id"></my-component1>
     </div>
   </div>
 </template>
@@ -184,7 +186,14 @@
           { do: 'php 공부하기', isComplete: false },
           { do: 'Java 공부하기', isComplete: false }
         ],
-        todos2: []
+        todos2: [],
+        items3: [
+          { id: 'itemId1' },
+          { id: 'itemId2' },
+          { id: 'itemId3' },
+          { id: 'itemId4' },
+          { id: 'itemId5' },
+        ]
       }
     },
     created() {
