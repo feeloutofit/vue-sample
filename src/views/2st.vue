@@ -117,7 +117,7 @@
       </div>
       <div>
         <ul v-if="todos2.length > 0">
-          <li>{{ todos.do }}</li>
+          <li>{{ todos2.do }}</li>
         </ul>
         <p v-else>todos is not left</p>
     </div>
@@ -178,13 +178,13 @@
           author: 'Jane Doe',
           publishedAt: '2016-04-10'
         },
+        numbers: [1, 2, 3, 4, 5],
         todos1: [
           { do: 'vue.js 공부하기', isComplete: true },
           { do: 'php 공부하기', isComplete: false },
           { do: 'Java 공부하기', isComplete: false }
         ],
-        todos2: [],
-        numbers: [1, 2, 3, 4, 5]
+        todos2: []
       }
     },
     created() {
