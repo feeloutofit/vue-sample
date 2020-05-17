@@ -99,14 +99,27 @@
       {{ item.value }}
       <!-- content -->
     </div>
-    <div v-for="todo in todos1" v-if="!todo.isComplete">
-      {{ todo }}
+    <div>
+      <li v-for="n in even(numbers)">{{ n }}</li>
     </div>
     <div>
-      <ul v-if="todos2.length > 0">
-        <li>{{ todos.do }}</li>
+      <span v-for="n in 10">{{ n }}</span>
+    </div>
+    <div>
+      <ul>
+        <template v-for="item in items1">
+          <li>{{ item.message }}</li>
+          <li class="divider" role="presentation"></li>
+        </template>
       </ul>
-      <p v-else>todos is not left</p>
+      <div v-for="todo in todos1" v-if="!todo.isComplete">
+        {{ todo }}
+      </div>
+      <div>
+        <ul v-if="todos2.length > 0">
+          <li>{{ todos.do }}</li>
+        </ul>
+        <p v-else>todos is not left</p>
     </div>
   </div>
 </template>
@@ -171,7 +184,14 @@
           { do: 'Java 공부하기', isComplete: false }
         ],
         todos2: [],
+        numbers: [1, 2, 3, 4, 5]
       }
+    },
+    created() {
+      this.items1.push({ message: 'Baz' })
+      this.items2 = this.items2.filter((item) => {
+        return item.message.match(/Foo/)
+      })
     },
     computed: {
       classObject2() {
@@ -205,6 +225,11 @@
       },
       changeOk2() {
         this.ok2 = !this.ok2
+      },
+      even(numbers) {
+        return numbers.filter((number) => {
+          return number % 2 === 0
+        })
       }
     }
   }
