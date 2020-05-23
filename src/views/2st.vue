@@ -250,7 +250,7 @@
           <option v-for="option in options" :value="option.value">
             {{ option.text }}
           </option>
-        </select>
+        </select>cd
         <span>Selected: {{ selected3 }}</span>
       </div>
     </div>
