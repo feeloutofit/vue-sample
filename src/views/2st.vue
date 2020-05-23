@@ -116,12 +116,143 @@
         {{ todo }}
       </div>
       <div>
-        <ul v-if="todos2.length > 0">
-          <li>{{ todos2.do }}</li>
+        <ul v-if="todos2.length">
+          <li v-for="todo in todos2">{{ todo }}</li>
         </ul>
-        <p v-else>todos is not left</p>
+        <p v-else>No todos left!</p>
       </div>
-      <my-component1 v-for="item in items3" :key="item3.id"></my-component1>
+      <my-component3 v-for="item in items3" :key="item.id">{{ item.id}} </my-component3>
+      <my-component3
+        v-for="(item, index) in items4"
+        :item="item"
+        :index="index"
+        :key="item.id"
+      >{{ item.id }}</my-component3>
+      <div  id="todo-list-example">
+        <form @submit.prevent="addNewTodo">
+          <label for="new-todo">Add a todo</label>
+          <input
+            v-model="newTodoText"
+            id="new-todo"
+            placeholder="E.g. Feed the cat"
+          >
+          <button>Add</button>
+        </form>
+        <ul>
+          <li
+            is="Todo-item3"
+            v-for="(todo, index) in todos"
+            :key="todo.id"
+            :title="todo.title"
+            @remove="todos.splice(index, 1)"
+          ></li>
+        </ul>
+      </div>
+      <div id="example-3">
+        <button @click="counter += 1">Add 1</button>
+        <p>위 버튼을 클릭한 횟수는 {{ counter }} 번 입니다.</p>
+      </div>
+      <div id="example-4">
+        <button @click="greet">Greet</button>
+      </div>
+      <div id="example-5">
+        <button @click="say('hi')">Say hi</button>
+        <button @click="say('what')">Say what</button>
+      </div>
+      <div>
+        <button @click="warn('Form cannot be submmited yet.', $event)">
+          Submit
+        </button>
+      </div>
+      <a @click.stop="doThis">test stop</a>
+      <form @submit.prevent="onSubmit"><button>test submit prevent</button></form>
+      <a @click.stop.prevent="doThat">test stop prevent</a>
+      <form @submit.prevent><button>submit prevent</button></form>
+      <div @click.capture="doThis"><button>capture</button></div>
+      <div @click.self="doThat"><button>self</button></div>
+      <a @click.once="doThis">once</a>
+      <div @scroll.passive="onScroll" style="height: 50px; overflow: auto;">
+        <div>test1</div>
+        <div>test1</div>
+        <div>test1</div>
+        <div>test1</div>
+        <div>test1</div>
+        <div>test1</div>
+      </div>
+      <div>
+        <input @keyup.enter="submit">
+      </div>
+      <div>
+        <input @keyup.page-down="onPageDown">
+      </div>
+      <div>
+        <input @keyup.13="submit">
+      </div>
+      <div>
+        <input @keyup.alt.67="clear">
+      </div>
+      <div @click.ctrl="doSomething">Do Something</div>
+      <div>
+        <button @click.ctrl="onClick">A</button>
+      </div>
+      <div>
+        <button @click.ctrl.exact="onCtrlClick">A</button>
+      </div>
+      <div>
+        <button @click.exact="onClick">A</button>
+      </div>
+      <div>
+        <input v-model="message1" placeholder="여기를 수정해보세요">
+        <p>메시지: {{ message1 }}</p>
+      </div>
+      <div>
+        <span>여러 줄을 가지는 메시지:</span>
+        <p style="white-space: pre-line">{{ message2 }}</p>
+        <br>
+        <textarea v-model="message2" placeholder="여러줄을 입력해보세요"></textarea>
+      </div>
+      <div>
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checkbox">{{ checked }}</label>
+      </div>
+      <div id="example-6">
+        <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+        <label for="jack">Jack</label>
+        <input type="checkbox" id="john" value="John" v-model="checkedNames">
+        <label for="john">John</label>
+        <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+        <label for="mike">Mike</label>
+        <br>
+        <span>체크한 이름: {{ checkedNames }}</span>
+      </div>
+      <div>
+        <select v-model="selected1">
+          <option disabled value="">Plaese select one</option>
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+        </select>
+        <br>
+        <span>선택함: {{ selected1 }}</span>
+      </div>
+      <div>
+        <select v-model="selected2" multiple>
+          <option disabled value="">Plaese select one</option>
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+        </select>
+        <br>
+        <span>Selected: {{ selected2 }}</span>
+      </div>
+      <div>
+        <select v-model="selected3">
+          <option v-for="option in options" :value="option.value">
+            {{ option.text }}
+          </option>
+        </select>
+        <span>Selected: {{ selected3 }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -129,12 +260,16 @@
 <script>
   import myComponent1 from '@/components/MyComponent1.vue'
   import myComponent2 from '@/components/MyComponent2.vue'
+  import myComponent3 from '@/components/MyComponent3.vue'
+  import TodoItem3 from '@/components/TodoItem3'
 
   export default {
     name: 'second',
     components: {
       myComponent1,
-      myComponent2
+      myComponent2,
+      myComponent3,
+      TodoItem3
     },
     data() {
       return {
@@ -186,13 +321,54 @@
           { do: 'php 공부하기', isComplete: false },
           { do: 'Java 공부하기', isComplete: false }
         ],
-        todos2: [],
+        todos2: [
+          { do: 'vue.js 공부하기', isComplete: true },
+          { do: 'php 공부하기', isComplete: false },
+          { do: 'Java 공부하기', isComplete: false }
+        ],
         items3: [
           { id: 'itemId1' },
           { id: 'itemId2' },
           { id: 'itemId3' },
           { id: 'itemId4' },
           { id: 'itemId5' },
+        ],
+        items4: [
+          { id: 'itemId6' },
+          { id: 'itemId7' },
+          { id: 'itemId8' },
+          { id: 'itemId9' },
+          { id: 'itemId10' },
+        ],
+        newTodoText: '',
+        todos: [
+          {
+            id: 1,
+            title: 'Do the dishes'
+          },
+          {
+            id: 2,
+            title: 'Take out the trash'
+          },
+          {
+            id: 3,
+            title: 'Mow the lawn'
+          }
+        ],
+        nextTodoId: 4,
+        counter: 0,
+        name: 'Vue.js',
+        message1: '',
+        message2: '',
+        checked: false,
+        checkedNames: [],
+        selected1: '',
+        selected2: [],
+        selected3: 'A',
+        options: [
+          { text: 'One', value: 'A' },
+          { text: 'Two', value: 'B' },
+          { text: 'Three', value: 'C' }
         ]
       }
     },
@@ -239,6 +415,56 @@
         return numbers.filter((number) => {
           return number % 2 === 0
         })
+      },
+      addNewTodo() {
+        this.todos.push({
+          id: this.nextTodoId++,
+          title: this.newTodoText
+        })
+        this.newTodoText = ''
+      },
+      greet(event) {
+        alert('Hello' + this.name + '!')
+        if (event) {
+          alert(event.target.tagName)
+        }
+      },
+      say(message) {
+        alert(message)
+      },
+      warn(message, event) {
+        if (event) event.preventDefault()
+        alert(message)
+      },
+      doThis() {
+        alert('doThis')
+      },
+      doThat() {
+        alert('doThat')
+      },
+      onSubmit() {
+        alert('onSubmit')
+      },
+      onScroll() {
+        alert('onScroll')
+      },
+      submit() {
+        alert('submit')
+      },
+      onPageDown() {
+        alert('onPageDown')
+      },
+      clear() {
+        alert('clear')
+      },
+      doSomething() {
+        alert('doSomething')
+      },
+      onClick() {
+        alert('onClick')
+      },
+      onCtrlClick() {
+        alert('onCtrlClick')
       }
     }
   }
