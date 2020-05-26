@@ -19,6 +19,11 @@ Vue.use(VueRouter)
             path: '2st',
             name: '2st',
             component: () => import(/* webpackChunkName: "about" */ '../views/2st.vue'),
+        },
+        {
+            path: '3rd',
+            name: '3rd',
+            component: () => import(/* webpackChunkName: "about" */ '../views/3rd.vue'),
         }
     ]
   }

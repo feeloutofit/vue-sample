@@ -2,7 +2,8 @@
   <div class="home">
     <div id="nav">
       <router-link to="/1st">1st</router-link> |
-      <router-link to="/2st">2st</router-link>
+      <router-link to="/2st">2st</router-link> |
+      <router-link to="/3rd">3rd</router-link>
     </div>
     <router-view/>
   </div>
