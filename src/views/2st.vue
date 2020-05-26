@@ -237,7 +237,7 @@
       </div>
       <div>
         <select v-model="selected2" multiple>
-          <option disabled value="">Plaese select one</option>
+<!--          <option disabled value="">Plaese select one</option>-->
           <option>A</option>
           <option>B</option>
           <option>C</option>
@@ -252,6 +252,36 @@
           </option>
         </select>
         <span>Selected: {{ selected3 }}</span>
+      </div>
+      <div>
+        <input type="radio" v-model="picked" value="a">
+        <input type="checkbox" v-model="toggle1">
+        <select v-model="selected4">
+          <option value="abc">ABC</option>
+        </select>
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          v-model="toggle2"
+          true-value="yes"
+          false-value="no"
+        >
+      </div>
+      <div>
+        <input type="radio" v-model="pick" :value="a">
+      </div>
+      <select v-model="selected5">
+        <option :value="{ number: 123 }">123</option>
+      </select>
+      <div>
+        <input v-model.lazy="msg1">
+      </div>
+      <div>
+        <input v-model.number="age" type="number">
+      </div>
+      <div>
+        <input v-model.trim="msg2">
       </div>
     </div>
   </div>
@@ -369,7 +399,17 @@
           { text: 'One', value: 'A' },
           { text: 'Two', value: 'B' },
           { text: 'Three', value: 'C' }
-        ]
+        ],
+        picked: '',
+        toggle1: '',
+        selected4: '',
+        toggle2: '',
+        pick: '',
+        a: 'test',
+        selected5: '',
+        msg1: '',
+        age: '',
+        msg2: ''
       }
     },
     created() {
