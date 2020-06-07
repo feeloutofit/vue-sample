@@ -67,7 +67,7 @@
     import todo2 from '@/components/Todo2'
     import comp1 from '@/components/Comp1'
     import bsDateInput from '@/components/BsDateInput'
-    import buttonCounter1 from '@/components/git ButtonCounter1'
+    import buttonCounter1 from '@/components/ButtonCounter1'
     export default {
         name: "third",
         data () {
