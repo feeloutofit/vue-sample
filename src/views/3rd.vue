@@ -30,6 +30,30 @@
             <input v-model="testMsg" @input="inputTest">
             <div>{{ testMsg }}</div>
         </div>
+        <div>
+            <todo1 :todo="todo"></todo1>
+        </div>
+        <div>
+            <todo2 :text="todo.text" :is-complete="todo.isComplete"></todo2>
+        </div>
+        <div>
+            <comp1 some-prop="1"></comp1>
+        </div>
+        <div>
+            <comp1 :some-prop="1"></comp1>
+        </div>
+        <div>
+            <comp1 :some-prop="1" test-non-props="true"></comp1>
+        </div>
+        <bs-date-input
+            data-3d-date-picker="true"
+            class="date-picker-theme-dark"
+        ></bs-date-input>
+        <div id="counter-event-example">
+            <p>{{ total }}</p>
+            <button-counter1 @increment="incrementTotal"></button-counter1>
+            <button-counter1 @increment="incrementTotal"></button-counter1>
+        </div>
     </div>
 </template>
 
@@ -39,16 +63,26 @@
     import simpleCounter from '@/components/SimpleCounter'
     import child1 from '@/components/Child1'
     import child2 from '@/components/Child2'
+    import todo1 from '@/components/Todo1'
+    import todo2 from '@/components/Todo2'
+    import comp1 from '@/components/Comp1'
+    import bsDateInput from '@/components/BsDateInput'
+    import buttonCounter1 from '@/components/git ButtonCounter1'
     export default {
         name: "third",
         data () {
             return {
                 test: 'test',
                 parentMsg: '',
-                testMsg: ''
+                testMsg: '',
+                todo: {
+                    text: 'Learn Vue',
+                    isComplete: false
+                },
+                total: 0
             }
         },
-        components:{clickTest, myComponent4, simpleCounter, child1, child2},
+        components:{clickTest, myComponent4, simpleCounter, child1, child2, todo1, todo2, comp1, bsDateInput, buttonCounter1},
         created() {
             console.log('3rd')
         },
@@ -61,6 +95,9 @@
             },
             inputTest(event) {
                 console.log('inputTest::', event.target.value, this.testMsg)
+            },
+            incrementTotal () {
+                this.total += 1
             }
         }
     }
